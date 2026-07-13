@@ -4,7 +4,7 @@ description: >
   smart dropdowns, date pickers, multi-step wizards, animated popup menus,
   and responsive data tables. Built for production-grade Flutter apps.
 version: 0.0.1
-homepage: https://github.com/harveedesigns/vasx_ui
+homepage: https://github.com/Sabari-Vasan-SM/vasX-UI.git
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
