@@ -2,7 +2,7 @@
 
 # vasX UI
 
-<img src="https://via.placeholder.com/1200x400.png?text=vasX+UI+Banner" alt="vasX UI Banner" width="100%"/>
+<img src="https://blogger.googleusercontent.com/img/a/AVvXsEj5z00l8ryUmp-gmTCVZ2-IDj5wiCAxTnLWBhiqiSDPF2towXOyHbU0Auq4HkJOxqDxy8FHQFYUoa9yiWeq_vzg5-O2kXIVe41d6gkCzpG_65Ofa01OfoaLFzXegBU765wdScKtOgqPE95Lwrq4wbCtPuCV4c9AfZkm9fzllQB64JiysiZGP6Sqem6rFPyr" alt="vasX UI Banner" width="100%"/>
 
 **A comprehensive collection of beautiful, reusable Flutter widgets built for production-grade applications.**
 
