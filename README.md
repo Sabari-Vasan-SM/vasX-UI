@@ -83,7 +83,7 @@ Add `vasx_ui` to your `pubspec.yaml` dependencies:
 
 ```yaml
 dependencies:
-  vasx_ui: ^0.0.2
+  vasx_ui: ^2.0.0
 ```
 
 Or run the following command in your terminal:
