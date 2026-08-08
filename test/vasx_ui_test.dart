@@ -342,6 +342,241 @@ void main() {
     expect(find.text('Save Server Settings'), findsOneWidget);
   });
 
+  testWidgets('VasxButton renders label and handles tap', (tester) async {
+    bool tapped = false;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VasxButton(
+            label: 'Submit Action',
+            icon: Icons.add,
+            onPressed: () => tapped = true,
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Submit Action'), findsOneWidget);
+    expect(find.byIcon(Icons.add), findsOneWidget);
+
+    await tester.tap(find.text('Submit Action'));
+    expect(tapped, isTrue);
+  });
+
+  testWidgets('VasxToggle renders active/inactive state and handles tap', (tester) async {
+    bool value = false;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: StatefulBuilder(
+            builder: (context, setState) {
+              return VasxToggle(
+                value: value,
+                label: 'Enable Feature',
+                onChanged: (val) => setState(() => value = val),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Enable Feature'), findsOneWidget);
+    expect(value, isFalse);
+
+    await tester.tap(find.text('Enable Feature'));
+    await tester.pumpAndSettle();
+    expect(value, isTrue);
+  });
+
+  testWidgets('VasxCheckbox renders checked/unchecked state and handles tap', (tester) async {
+    bool checked = false;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: StatefulBuilder(
+            builder: (context, setState) {
+              return VasxCheckbox(
+                value: checked,
+                label: 'Accept Terms',
+                onChanged: (val) => setState(() => checked = val),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Accept Terms'), findsOneWidget);
+    expect(checked, isFalse);
+
+    await tester.tap(find.text('Accept Terms'));
+    await tester.pumpAndSettle();
+    expect(checked, isTrue);
+  });
+
+  testWidgets('VasxSearchBar renders input and hint', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: Scaffold(
+          body: VasxSearchBar(
+            hintText: 'Search items...',
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Search items...'), findsOneWidget);
+    expect(find.byIcon(Icons.search_rounded), findsOneWidget);
+  });
+
+  testWidgets('VasxAiSearchBar renders title, hint, and toggles attachment menu', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VasxAiSearchBar(
+            title: 'What are you looking for today?',
+            subtitle: 'Ask anything',
+            hintText: 'Search query...',
+            attachmentItems: [
+              VasxAiAttachmentItem(
+                label: 'Add Photos',
+                icon: Icons.add_a_photo,
+                onTap: () {},
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('What are you looking for today?'), findsOneWidget);
+    expect(find.text('Ask anything'), findsOneWidget);
+    expect(find.text('Search query...'), findsOneWidget);
+
+    // Tap + button to open attachment overlay menu
+    await tester.tap(find.byIcon(Icons.add_rounded));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Add Photos'), findsOneWidget);
+  });
+
+  testWidgets('VasxPaymentConfirmationDialog renders summary, pay input, and breakdown items', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VasxPaymentConfirmationDialog(
+            title: 'Payment Details',
+            description: 'Supermarket Checkout (2 items)',
+            totalAmount: 1000.0,
+            alreadyPaidAmount: 200.0,
+            breakdownItems: const [
+              VasxPaymentConfirmationItem(
+                label: 'Item 1',
+                amount: 500.0,
+              ),
+              VasxPaymentConfirmationItem(
+                label: 'Item 2',
+                amount: 300.0,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Payment Details'), findsOneWidget);
+    expect(find.text('Supermarket Checkout (2 items)'), findsOneWidget);
+    expect(find.text('₹1000.00'), findsNWidgets(2)); // Amount & Net Amount
+    expect(find.text('₹200.00'), findsOneWidget); // Already Paid
+    expect(find.text('₹800.00'), findsOneWidget); // Balance Due
+    expect(find.text('Item 1'), findsOneWidget);
+    expect(find.text('Item 2'), findsOneWidget);
+    expect(find.text('Cancel'), findsOneWidget);
+  });
+
+  testWidgets('VasxAlert renders title, message, and handles dismiss tap', (tester) async {
+    bool dismissed = false;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VasxAlert(
+            title: 'Logout Successful',
+            message: 'See you soon!',
+            type: VasxAlertType.success,
+            onDismiss: () => dismissed = true,
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Logout Successful'), findsOneWidget);
+    expect(find.text('See you soon!'), findsOneWidget);
+    expect(find.byIcon(Icons.close_rounded), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.close_rounded));
+    expect(dismissed, isTrue);
+  });
+
+  testWidgets('VasxSideMenu renders brand name, items, and handles item selection', (tester) async {
+    String selected = 'dashboard';
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VasxSideMenu(
+            brandName: 'Test Shop',
+            selectedId: selected,
+            expandOnHover: false,
+            items: const [
+              VasxSideMenuItem(
+                id: 'dashboard',
+                label: 'Dashboard',
+                icon: Icons.grid_view,
+              ),
+              VasxSideMenuItem(
+                id: 'orders',
+                label: 'My Orders',
+                icon: Icons.shopping_bag,
+              ),
+            ],
+            onItemSelected: (id) => selected = id,
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Test Shop'), findsOneWidget);
+    expect(find.text('Dashboard'), findsOneWidget);
+    expect(find.text('My Orders'), findsOneWidget);
+
+    await tester.tap(find.text('My Orders'));
+    expect(selected, 'orders');
+  });
+
+  testWidgets('VasxMobileBottomNavBar renders active item pill and handles selection', (tester) async {
+    String selected = 'dashboard';
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          bottomNavigationBar: VasxMobileBottomNavBar(
+            selectedId: selected,
+            onItemSelected: (id) => selected = id,
+            items: const [
+              VasxBottomNavItem(id: 'dashboard', label: 'Dashboard', icon: Icons.grid_view),
+              VasxBottomNavItem(id: 'orders', label: 'My Orders', icon: Icons.shopping_bag),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Dashboard'), findsOneWidget);
+    expect(find.byIcon(Icons.shopping_bag), findsOneWidget);
+
+    await tester.tap(find.byIcon(Icons.shopping_bag));
+    expect(selected, 'orders');
+  });
+
   // ───── CrmStageColors ─────
   group('CrmStageColors', () {
     test('resolves colors for valid stages', () {
