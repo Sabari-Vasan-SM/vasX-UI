@@ -88,13 +88,13 @@ class CreatableDropdownState extends State<CreatableDropdown> {
   void _openDropdown() {
     _overlayEntry = _createOverlayEntry();
     Overlay.of(context).insert(_overlayEntry!);
-    setState(() => _isExpanded = true);
+    if (mounted) setState(() => _isExpanded = true);
   }
 
   void _closeDropdown() {
     _overlayEntry?.remove();
     _overlayEntry = null;
-    setState(() => _isExpanded = false);
+    if (mounted) setState(() => _isExpanded = false);
   }
 
   OverlayEntry _createOverlayEntry() {

@@ -105,6 +105,7 @@ class _DropdownDatePickerState extends State<DropdownDatePicker> {
   void _onControllerChanged() => _parseController();
 
   void _parseController() {
+    if (!mounted) return;
     final text = widget.controller.text.trim();
     if (text.isEmpty) {
       if (_selectedDay != null ||

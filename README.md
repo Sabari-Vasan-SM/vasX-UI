@@ -37,6 +37,18 @@
   - [CreatableDropdown](#creatabledropdown)
   - [DropdownDatePicker](#dropdowndatepicker)
   - [CustomDateRangePickerDialog](#customdaterangepickerdialog)
+  - [CrmCalendar](#crmcalendar)
+  - [CrmStatsDashboard](#crmstatsdashboard)
+  - [VasxFormCard](#vasxformcard)
+  - [VasxButton](#vasxbutton)
+  - [VasxToggle](#vasxtoggle)
+  - [VasxCheckbox](#vasxcheckbox)
+  - [VasxSearchBar](#vasxsearchbar)
+  - [VasxAiSearchBar](#vasxaisearchbar)
+  - [VasxPaymentConfirmationDialog](#vasxpaymentconfirmationdialog)
+  - [VasxAlert & showVasxAlertToast](#vasxalert--showvasxalerttoast)
+  - [VasxSideMenu](#vasxsidemenu)
+  - [VasxMobileBottomNavBar](#vasxmobilebottomnavbar)
 - [Folder Structure](#-folder-structure)
 - [Roadmap](#-roadmap)
 - [Contributing](#-contributing)
@@ -47,7 +59,7 @@
 
 ## 📝 Description
 
-**vasX UI** is an extensively crafted UI library for Flutter. Instead of rewriting common complex UI components like multi-step wizards, searchable dropdowns, and customizable tables, `vasx_ui` provides highly polished, fully customizable, and deeply integrated widgets that you can plug directly into your production apps. It follows modern design principles out of the box with fluid animations, adaptive layouts, and a cohesive color system.
+**vasX UI** is an extensively crafted UI library for Flutter. Instead of rewriting common complex UI components like multi-step wizards, searchable dropdowns, side menus, and customizable tables, `vasx_ui` provides highly polished, fully customizable, and deeply integrated widgets that you can plug directly into your production apps. It follows modern design principles out of the box with fluid animations, adaptive layouts, and a cohesive color system.
 
 ---
 
@@ -68,10 +80,6 @@
 
 *(Above: A showcase of the versatile widgets included in vasX UI)*
 
-### 🎬 Animated Demo
-*(Coming soon)*
-<!-- <img src="https://via.placeholder.com/800x400.gif?text=Demo+GIF" alt="vasX UI Demo" width="100%"/> -->
-
 ---
 
 ## 🚀 Installation
@@ -80,7 +88,7 @@ Add `vasx_ui` to your `pubspec.yaml` dependencies:
 
 ```yaml
 dependencies:
-  vasx_ui: ^0.0.1
+  vasx_ui: ^2.0.0
 ```
 
 Or run the following command in your terminal:
@@ -308,6 +316,216 @@ final range = await showCustomDateRangePicker(
 if (range != null) {
   setState(() => _selectedRange = range);
 }
+```
+
+---
+
+### CrmCalendar
+An interactive month and week view CRM calendar with event badges.
+
+```dart
+CrmCalendar(
+  events: [
+    CrmCalendarEvent(
+      title: 'Demo Meeting',
+      date: DateTime.now(),
+      color: Colors.blue,
+    ),
+  ],
+  onDateSelected: (date) => print('Selected: $date'),
+)
+```
+
+---
+
+### CrmStatsDashboard
+A comprehensive CRM analytics dashboard with key metric cards and interactive charts.
+
+```dart
+CrmStatsDashboard(
+  title: 'Sales Dashboard',
+  stats: const [
+    CrmStatCardData(title: 'Total Revenue', value: '₹1,24,500', change: '+14%'),
+  ],
+)
+```
+
+---
+
+### VasxFormCard
+A modern, polished form card with header badge, icon input fields, obscure password toggle, and submit button.
+
+```dart
+VasxFormCard(
+  title: 'Sign In',
+  subtitle: 'Enter your account details',
+  badgeText: 'Secure',
+  fields: [
+    VasxFormFieldConfig(
+      label: 'Email',
+      hint: 'user@example.com',
+      prefixIcon: Icons.email_outlined,
+    ),
+    VasxFormFieldConfig(
+      label: 'Password',
+      hint: '••••••••',
+      prefixIcon: Icons.lock_outline,
+      isPassword: true,
+    ),
+  ],
+  submitButtonText: 'Login',
+  onSubmit: (data) => print(data),
+)
+```
+
+---
+
+### VasxButton
+A customizable action button supporting primary, outlined, and secondary variants, plus sizes and loading state.
+
+```dart
+VasxButton(
+  label: 'Save Changes',
+  icon: Icons.check_circle_outline,
+  variant: VasxButtonVariant.primary,
+  onPressed: () => _save(),
+)
+```
+
+---
+
+### VasxToggle
+An animated, modern custom toggle switch widget.
+
+```dart
+VasxToggle(
+  value: _isEnabled,
+  onChanged: (val) => setState(() => _isEnabled = val),
+)
+```
+
+---
+
+### VasxCheckbox
+A rounded square checkbox widget with checkmark indicator.
+
+```dart
+VasxCheckbox(
+  value: _isChecked,
+  label: 'I accept terms and conditions',
+  onChanged: (val) => setState(() => _isChecked = val),
+)
+```
+
+---
+
+### VasxSearchBar
+An action toolbar search bar with clear button.
+
+```dart
+VasxSearchBar(
+  hint: 'Search products...',
+  onChanged: (query) => _filterResults(query),
+)
+```
+
+---
+
+### VasxAiSearchBar
+An AI assistant capsule search bar featuring a gradient title badge and attachment popup overlay.
+
+```dart
+VasxAiSearchBar(
+  title: 'AI Assistant',
+  hint: 'Ask anything or upload attachments...',
+  onSubmit: (prompt) => _sendPrompt(prompt),
+)
+```
+
+---
+
+### VasxPaymentConfirmationDialog
+A billing dialog with summary breakdown, editable payment input, breakdown list, and slide-to-pay action button.
+
+```dart
+VasxPaymentConfirmationDialog(
+  title: 'Supermarket Billing',
+  totalAmount: 1000.0,
+  alreadyPaidAmount: 200.0,
+  items: const [
+    VasxPaymentItem(name: 'Grocery Items', amount: 700.0),
+    VasxPaymentItem(name: 'Beverages', amount: 300.0),
+  ],
+  onConfirmPayment: (paid) => print('Paid: ₹$paid'),
+)
+```
+
+---
+
+### VasxAlert & showVasxAlertToast
+Green (Success), Yellow (Warning), Red (Error), and Blue (Info) alert banners, plus a top-right animated toast helper auto-hiding after 2 seconds.
+
+```dart
+// Solid Banner Widget
+VasxAlert(
+  title: 'Logout Successful',
+  message: 'See you soon!',
+  type: VasxAlertType.success,
+  variant: VasxAlertVariant.solid,
+  onDismiss: () => _hideAlert(),
+)
+
+// Animated Top-Right Toast (Auto-hides in 2s)
+showVasxAlertToast(
+  context: context,
+  title: 'Storage Warning',
+  message: 'Cloud storage at 85% capacity.',
+  type: VasxAlertType.warning,
+  duration: const Duration(seconds: 2),
+);
+```
+
+---
+
+### VasxSideMenu
+A collapsible side menu widget supporting smooth mouse-hover expansion (from 72px to 250px), badge counts, and nested submenus.
+
+```dart
+VasxSideMenu(
+  brandName: 'Test Shop',
+  selectedId: _selectedId,
+  expandOnHover: true,
+  items: const [
+    VasxSideMenuItem(id: 'dashboard', label: 'Dashboard', icon: Icons.grid_view_rounded),
+    VasxSideMenuItem(id: 'orders', label: 'My Orders', icon: Icons.shopping_bag_outlined, badgeText: '5'),
+    VasxSideMenuItem(
+      id: 'products',
+      label: 'Products',
+      icon: Icons.inventory_2_outlined,
+      subItems: [
+        VasxSideMenuItem(id: 'all_products', label: 'All Products', icon: Icons.list_alt_rounded),
+      ],
+    ),
+  ],
+  onItemSelected: (id) => setState(() => _selectedId = id),
+)
+```
+
+---
+
+### VasxMobileBottomNavBar
+A floating pill-style mobile bottom navigation bar widget with active item capsule pill expansion.
+
+```dart
+VasxMobileBottomNavBar(
+  selectedId: _currentTab,
+  onItemSelected: (id) => setState(() => _currentTab = id),
+  items: const [
+    VasxBottomNavItem(id: 'dashboard', label: 'Dashboard', icon: Icons.grid_view_rounded),
+    VasxBottomNavItem(id: 'orders', label: 'Orders', icon: Icons.shopping_bag_outlined, badgeText: '3'),
+    VasxBottomNavItem(id: 'customers', label: 'Customers', icon: Icons.people_outline_rounded),
+  ],
+)
 ```
 
 ---

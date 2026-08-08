@@ -3,8 +3,12 @@ description: >
   vasX UI — a collection of beautiful, reusable Flutter widgets including
   smart dropdowns, date pickers, multi-step wizards, animated popup menus,
   and responsive data tables. Built for production-grade Flutter apps.
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 version: 0.0.2
+=======
+version: 2.0.0
+>>>>>>> c679b0932f155dc101d9596542e3b5989bc6e5c1
 homepage: https://github.com/Sabari-Vasan-SM/vasX-UI.git
 =======
 version: 2.0.0
@@ -20,8 +24,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  intl: ">=0.19.0 <1.0.0"
-  fl_chart: ">=0.69.0 <1.0.0"
+  intl: ^0.20.2
+  fl_chart: ^1.2.0
 
 dev_dependencies:
   flutter_test:

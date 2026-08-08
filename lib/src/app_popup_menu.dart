@@ -174,7 +174,7 @@ class _AppPopupMenuState extends State<AppPopupMenu>
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         child: Row(
           children: [
-            if (item.iconPath != null)
+            if (item.iconPath != null) ...[
               Image.asset(
                 item.iconPath!,
                 width: 22,
@@ -186,8 +186,9 @@ class _AppPopupMenuState extends State<AppPopupMenu>
                       ? VasxColors.destructive
                       : VasxColors.textSecondary,
                 ),
-              )
-            else if (item.icon != null)
+              ),
+              const SizedBox(width: 12),
+            ] else if (item.icon != null) ...[
               Icon(
                 item.icon,
                 size: 22,
@@ -195,7 +196,8 @@ class _AppPopupMenuState extends State<AppPopupMenu>
                     ? VasxColors.destructive
                     : VasxColors.textSecondary,
               ),
-            const SizedBox(width: 12),
+              const SizedBox(width: 12),
+            ],
             Expanded(
               child: Text(
                 item.label,

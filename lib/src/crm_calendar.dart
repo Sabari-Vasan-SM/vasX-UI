@@ -456,13 +456,31 @@ class _CrmCalendarState extends State<CrmCalendar> {
       );
     }
 
-    return Row(
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      alignment: WrapAlignment.spaceBetween,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        Expanded(child: Row(children: [nav, const SizedBox(width: 12), search])),
-        const SizedBox(width: 12),
-        viewSwitcher,
-        const SizedBox(width: 8),
-        pickBtn,
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            nav,
+            const SizedBox(width: 12),
+            ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 260),
+              child: search,
+            ),
+          ],
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            viewSwitcher,
+            const SizedBox(width: 8),
+            pickBtn,
+          ],
+        ),
       ],
     );
   }
@@ -476,21 +494,13 @@ class _CrmCalendarState extends State<CrmCalendar> {
 
     final legend = _LegendRow(isMobile: isMobile);
 
-    if (isMobile) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: VasxColors.textPrimary)),
-          const SizedBox(height: 8),
-          legend,
-        ],
-      );
-    }
-
-    return Row(
+    return Wrap(
+      spacing: 12,
+      runSpacing: 8,
+      alignment: WrapAlignment.spaceBetween,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: VasxColors.textPrimary)),
-        const Spacer(),
         legend,
       ],
     );
