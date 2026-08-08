@@ -1,0 +1,19 @@
+{
+  "" : {
+    "diagnostics" : "/Users/sabarivasan/Projects/vasX-UI/example/build/macos/Build/Intermediates.noindex/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework-primary.dia",
+    "emit-module-dependencies" : "/Users/sabarivasan/Projects/vasX-UI/example/build/macos/Build/Intermediates.noindex/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/sabarivasan/Projects/vasX-UI/example/build/macos/Build/Intermediates.noindex/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework-primary-emit-module.dia",
+    "pch" : "/Users/sabarivasan/Projects/vasX-UI/example/build/macos/Build/Intermediates.noindex/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/sabarivasan/Projects/vasX-UI/example/build/macos/Build/Intermediates.noindex/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework-primary.swiftdeps"
+  },
+  "/Users/sabarivasan/Projects/vasX-UI/example/macos/Flutter/ephemeral/Packages/.packages/FlutterFramework/Sources/FlutterFramework/FlutterFramework.swift" : {
+    "const-values" : "/Users/sabarivasan/Projects/vasX-UI/example/build/macos/Build/Intermediates.noindex/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework.swiftconstvalues",
+    "dependencies" : "/Users/sabarivasan/Projects/vasX-UI/example/build/macos/Build/Intermediates.noindex/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework.d",
+    "diagnostics" : "/Users/sabarivasan/Projects/vasX-UI/example/build/macos/Build/Intermediates.noindex/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework.dia",
+    "index-unit-output-path" : "/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework.o",
+    "llvm-bc" : "/Users/sabarivasan/Projects/vasX-UI/example/build/macos/Build/Intermediates.noindex/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework.bc",
+    "object" : "/Users/sabarivasan/Projects/vasX-UI/example/build/macos/Build/Intermediates.noindex/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework.o",
+    "swift-dependencies" : "/Users/sabarivasan/Projects/vasX-UI/example/build/macos/Build/Intermediates.noindex/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework.swiftdeps",
+    "swiftmodule" : "/Users/sabarivasan/Projects/vasX-UI/example/build/macos/Build/Intermediates.noindex/FlutterFramework.build/Debug/FlutterFramework.build/Objects-normal/arm64/FlutterFramework~partial.swiftmodule"
+  }
+}

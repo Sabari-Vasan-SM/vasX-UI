@@ -7,10 +7,15 @@
 **A comprehensive collection of beautiful, reusable Flutter widgets built for production-grade applications.**
 
 [![pub version](https://img.shields.io/pub/v/vasx_ui?color=blue)](https://pub.dev/packages/vasx_ui)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-vasxui.netlify.app-00C7B7?logo=netlify)](https://vasxui.netlify.app/)
 [![Flutter](https://img.shields.io/badge/Flutter-%3E%3D3.22.0-02569B?logo=flutter)](https://flutter.dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/Sabari-Vasan-SM/vasX-UI?style=social)](https://github.com/Sabari-Vasan-SM/vasX-UI)
 [![Developer](https://img.shields.io/badge/Developer-Sabari_Vasan-02569B)](https://portfolio.sabari.me/)
+
+<br/>
+
+👉 **[Explore Live Interactive Web Demo 🌐](https://vasxui.netlify.app/)**
 
 </div>
 
@@ -330,8 +335,8 @@ vasx_ui/
 - [ ] Add `FileUploader` widget.
 - [ ] Implement `Timeline` view component.
 - [ ] Add dark mode explicit toggle support across all widgets.
-- [ ] Comprehensive widget tests coverage.
-- [ ] Publish interactive web demo.
+- [x] Comprehensive widget tests coverage.
+- [x] Publish interactive web demo: [vasxui.netlify.app](https://vasxui.netlify.app/)
 
 ---
 
