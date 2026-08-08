@@ -314,6 +314,34 @@ void main() {
     expect(find.text('Archived Leads'), findsOneWidget);
   });
 
+  testWidgets('VasxFormCard renders header, fields, and submit button', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: VasxFormCard(
+            title: 'Server Settings',
+            subtitle: 'Configure host and port',
+            headerIcon: Icons.dns,
+            fields: const [
+              VasxFormFieldConfig(
+                label: 'Server Host',
+                hintText: '127.0.0.1',
+              ),
+            ],
+            submitButtonLabel: 'Save Server Settings',
+            onSubmit: () {},
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Server Settings'), findsOneWidget);
+    expect(find.text('Configure host and port'), findsOneWidget);
+    expect(find.text('Server Host'), findsOneWidget);
+    expect(find.text('127.0.0.1'), findsOneWidget);
+    expect(find.text('Save Server Settings'), findsOneWidget);
+  });
+
   // ───── CrmStageColors ─────
   group('CrmStageColors', () {
     test('resolves colors for valid stages', () {

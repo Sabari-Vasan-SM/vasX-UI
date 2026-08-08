@@ -53,6 +53,8 @@ class ExampleHomePage extends StatelessWidget {
           const CrmCalendarExample()),
       _GalleryItem('CrmStatsDashboard', Icons.dashboard_outlined,
           const CrmStatsDashboardExample()),
+      _GalleryItem('Form', Icons.dynamic_form_outlined,
+          const CustomFormExample()),
     ];
 
     return Scaffold(
@@ -743,6 +745,106 @@ class _CrmStatsDashboardExampleState extends State<CrmStatsDashboardExample> {
             const SnackBar(content: Text('View logs tapped')),
           );
         },
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────
+// CustomForm Example
+// ─────────────────────────────────────────────
+class CustomFormExample extends StatefulWidget {
+  const CustomFormExample({super.key});
+
+  @override
+  State<CustomFormExample> createState() => _CustomFormExampleState();
+}
+
+class _CustomFormExampleState extends State<CustomFormExample> {
+  final _hostController = TextEditingController(text: 'smtp.gmail.com');
+  final _portController = TextEditingController(text: '587');
+  final _usernameController =
+      TextEditingController(text: 'admin@vasxui.com');
+  final _passwordController = TextEditingController();
+  final _fromNameController = TextEditingController(text: 'vasX Notification Portal');
+
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    _hostController.dispose();
+    _portController.dispose();
+    _usernameController.dispose();
+    _passwordController.dispose();
+    _fromNameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: VasxColors.surface,
+      appBar: AppBar(title: const Text('VasxFormCard (Form)')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 540),
+            child: VasxFormCard(
+              title: 'Email Credentials (SMTP)',
+              subtitle: 'Configure email server for OTP delivery',
+              headerIcon: Icons.email_outlined,
+              badgeColor: const Color(0xFFEEF2FF),
+              badgeIconColor: VasxColors.primary,
+              isLoading: _isLoading,
+              fields: [
+                VasxFormFieldConfig(
+                  label: 'SMTP Host',
+                  hintText: 'e.g. smtp.gmail.com',
+                  controller: _hostController,
+                  prefixIcon: Icons.dns_outlined,
+                ),
+                VasxFormFieldConfig(
+                  label: 'SMTP Port',
+                  hintText: '587',
+                  controller: _portController,
+                  prefixIcon: Icons.tag_outlined,
+                  keyboardType: TextInputType.number,
+                ),
+                VasxFormFieldConfig(
+                  label: 'Username / Email',
+                  hintText: 'user@domain.com',
+                  controller: _usernameController,
+                  prefixIcon: Icons.person_outline_rounded,
+                  keyboardType: TextInputType.emailAddress,
+                ),
+                VasxFormFieldConfig(
+                  label: 'App Password',
+                  hintText: 'Current: (leave blank to keep)',
+                  controller: _passwordController,
+                  prefixIcon: Icons.lock_outline_rounded,
+                  obscureText: true,
+                ),
+                VasxFormFieldConfig(
+                  label: 'From Name',
+                  hintText: 'ID Card Portal',
+                  controller: _fromNameController,
+                  prefixIcon: Icons.badge_outlined,
+                ),
+              ],
+              submitButtonLabel: 'Save Credentials',
+              onSubmit: () async {
+                setState(() => _isLoading = true);
+                await Future.delayed(const Duration(seconds: 1));
+                if (!context.mounted) return;
+                setState(() => _isLoading = false);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Credentials saved successfully!')),
+                );
+              },
+            ),
+          ),
+        ),
       ),
     );
   }

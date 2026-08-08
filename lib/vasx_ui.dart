@@ -30,3 +30,4 @@ export 'src/custom_date_range_picker.dart';
 export 'src/vasx_colors.dart';
 export 'src/crm_calendar.dart';
 export 'src/crm_stats_dashboard.dart';
+export 'src/custom_form_card.dart';
