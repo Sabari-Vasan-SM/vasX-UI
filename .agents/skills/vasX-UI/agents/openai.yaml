@@ -1,0 +1,6 @@
+interface:
+  display_name: "VasX UI"
+  short_description: "Repo-specific patterns and workflows for vasX-UI"
+  default_prompt: "Use the vasX-UI repo skill to follow existing architecture, testing, and workflow conventions."
+policy:
+  allow_implicit_invocation: true
