@@ -115,6 +115,7 @@ class _ScrollableWizardShellState extends State<ScrollableWizardShell> {
   // ───────────────────── Scroll tracking ─────────────────
 
   void _onScroll() {
+    if (!mounted) return;
     if (_scrollController.position.pixels >=
         _scrollController.position.maxScrollExtent - 10) {
       final last = _sectionKeys.length - 1;

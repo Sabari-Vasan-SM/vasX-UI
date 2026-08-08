@@ -97,16 +97,18 @@ class SearchableDropdownState extends State<SearchableDropdown> {
       if (mounted) _focusNode.requestFocus();
     });
 
-    setState(() {
-      _isExpanded = true;
-      _searchController.clear();
-    });
+    if (mounted) {
+      setState(() {
+        _isExpanded = true;
+        _searchController.clear();
+      });
+    }
   }
 
   void _closeDropdown() {
     _overlayEntry?.remove();
     _overlayEntry = null;
-    setState(() => _isExpanded = false);
+    if (mounted) setState(() => _isExpanded = false);
   }
 
   OverlayEntry _createOverlayEntry() {
