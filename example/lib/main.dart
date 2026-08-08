@@ -49,6 +49,10 @@ class ExampleHomePage extends StatelessWidget {
           const DropdownDatePickerExample()),
       _GalleryItem('DateRangePicker', Icons.date_range,
           const DateRangePickerExample()),
+      _GalleryItem('CrmCalendar', Icons.calendar_month,
+          const CrmCalendarExample()),
+      _GalleryItem('CrmStatsDashboard', Icons.dashboard_outlined,
+          const CrmStatsDashboardExample()),
     ];
 
     return Scaffold(
@@ -120,18 +124,24 @@ class _AppPopupMenuExampleState extends State<AppPopupMenuExample> {
             AppPopupMenuItem(
               label: 'Edit',
               icon: Icons.edit_outlined,
-              onTap: () => setState(() => _lastAction = 'Edit tapped'),
+              onTap: () {
+                if (mounted) setState(() => _lastAction = 'Edit tapped');
+              },
             ),
             AppPopupMenuItem(
               label: 'Duplicate',
               icon: Icons.copy_outlined,
-              onTap: () => setState(() => _lastAction = 'Duplicate tapped'),
+              onTap: () {
+                if (mounted) setState(() => _lastAction = 'Duplicate tapped');
+              },
             ),
             AppPopupMenuItem(
               label: 'Delete',
               icon: Icons.delete_outline,
               isDestructive: true,
-              onTap: () => setState(() => _lastAction = 'Delete tapped'),
+              onTap: () {
+                if (mounted) setState(() => _lastAction = 'Delete tapped');
+              },
             ),
           ],
         ),
@@ -320,12 +330,11 @@ class _ScrollableWizardExampleState
       onSave: () async {
         setState(() => _saving = true);
         await Future.delayed(const Duration(seconds: 2));
-        if (mounted) {
-          setState(() => _saving = false);
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Saved!')),
-          );
-        }
+        if (!context.mounted) return;
+        setState(() => _saving = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Saved!')),
+        );
       },
       onCancel: () => Navigator.pop(context),
     );
@@ -440,7 +449,7 @@ class CreatableDropdownExample extends StatefulWidget {
 
 class _CreatableDropdownExampleState
     extends State<CreatableDropdownExample> {
-  List<String> _classes = ['Class 10-A', 'Class 10-B', 'Class 11-A'];
+  final List<String> _classes = ['Class 10-A', 'Class 10-B', 'Class 11-A'];
   String _selected = 'Class 10-A';
 
   @override
@@ -574,6 +583,166 @@ class _DateRangePickerExampleState
               ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────
+// CrmCalendar Example
+// ─────────────────────────────────────────────
+class CrmCalendarExample extends StatefulWidget {
+  const CrmCalendarExample({super.key});
+
+  @override
+  State<CrmCalendarExample> createState() => _CrmCalendarExampleState();
+}
+
+class _CrmCalendarExampleState extends State<CrmCalendarExample> {
+  final List<CrmCalendarEvent> _events = [
+    CrmCalendarEvent(
+      id: '1',
+      name: 'Rahul Sharma',
+      date: DateTime.now(),
+      time: '10:30 AM',
+      stage: 'Visit Scheduled',
+      notes: 'Campus tour requested for Engineering program.',
+    ),
+    CrmCalendarEvent(
+      id: '2',
+      name: 'Priya Patel',
+      date: DateTime.now(),
+      time: '02:00 PM',
+      stage: 'Interview Call',
+      notes: 'MBA scholarship evaluation interview.',
+    ),
+    CrmCalendarEvent(
+      id: '3',
+      name: 'Aarav Kumar',
+      date: DateTime.now().add(const Duration(days: 1)),
+      time: '11:00 AM',
+      stage: 'New Lead',
+      notes: 'Enquired via website form.',
+    ),
+    CrmCalendarEvent(
+      id: '4',
+      name: 'Ananya Verma',
+      date: DateTime.now().add(const Duration(days: 2)),
+      time: '03:30 PM',
+      stage: 'Admission Offered',
+      notes: 'Offer letter dispatched.',
+    ),
+    CrmCalendarEvent(
+      id: '5',
+      name: 'Vikram Singh',
+      date: DateTime.now().subtract(const Duration(days: 1)),
+      time: '09:30 AM',
+      stage: 'Follow-up Required',
+      notes: 'Pending fee structure discussion.',
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('CrmCalendar')),
+      body: CrmCalendar(
+        events: _events,
+        onEventView: (id) {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Viewing event ID: $id')),
+          );
+        },
+        onEventEdit: (id) {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Editing event ID: $id')),
+          );
+        },
+        onPickDate: () async {
+          return await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2020),
+            lastDate: DateTime(2030),
+          );
+        },
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────
+// CrmStatsDashboard Example
+// ─────────────────────────────────────────────
+class CrmStatsDashboardExample extends StatefulWidget {
+  const CrmStatsDashboardExample({super.key});
+
+  @override
+  State<CrmStatsDashboardExample> createState() =>
+      _CrmStatsDashboardExampleState();
+}
+
+class _CrmStatsDashboardExampleState extends State<CrmStatsDashboardExample> {
+  final Map<String, int> _leadsByStage = {
+    'New Lead': 45,
+    'Contacted': 32,
+    'Follow-up Required': 18,
+    'Interested': 28,
+    'Visit Scheduled': 14,
+    'Application Started': 22,
+    'Interview Call': 10,
+    'Admission Offered': 16,
+    'Waitlisted': 5,
+    'Lost Lead': 8,
+    'Re-engaged': 12,
+    'Cold Lead': 9,
+  };
+
+  final List<CrmTrendData> _trendData = List.generate(
+    15,
+    (i) => CrmTrendData(
+      date: '2026-08-${(i + 1).toString().padLeft(2, '0')}',
+      value: (15 + (i * 7) % 35).toDouble(),
+    ),
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('CrmStatsDashboard')),
+      body: CrmStatsDashboard(
+        totalLeads: 219,
+        archivedLeadsCount: 24,
+        leadsByStage: _leadsByStage,
+        trendData: _trendData,
+        startDate: DateTime(2026, 8, 1),
+        endDate: DateTime(2026, 8, 15),
+        onDateRangeTap: () {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Date range filter tapped')),
+          );
+        },
+        onViewArchived: () {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Archived leads tapped')),
+          );
+        },
+        onViewAllApplications: () {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('View all applications tapped')),
+          );
+        },
+        onViewLogs: () {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('View logs tapped')),
+          );
+        },
       ),
     );
   }

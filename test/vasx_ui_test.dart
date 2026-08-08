@@ -150,6 +150,184 @@ void main() {
     expect(find.text('Day'), findsOneWidget);
     controller.dispose();
   });
+
+  testWidgets('CreatableDropdown renders trigger field', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: CreatableDropdown(
+            value: 'Class 10',
+            items: const ['Class 9', 'Class 10'],
+            onChanged: (_) {},
+            onAddItem: (_) {},
+          ),
+        ),
+      ),
+    );
+    expect(find.text('Class 10'), findsOneWidget);
+  });
+
+  testWidgets('MultiSelectSearchableDropdown renders hint and label', (tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: MultiSelectSearchableDropdown(
+            label: 'Subjects',
+            values: const [],
+            hint: 'Select subjects',
+            items: const ['Math', 'Science'],
+            onChanged: (_) {},
+          ),
+        ),
+      ),
+    );
+    expect(find.text('Subjects'), findsOneWidget);
+    expect(find.text('Select subjects'), findsOneWidget);
+  });
+
+  testWidgets('VerticalWizardShell renders step titles and form', (tester) async {
+    tester.view.physicalSize = const Size(1400, 900);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+
+    const steps = [
+      WizardStepConfig(icon: Icons.person, label: 'Personal', mobileLabel: 'P'),
+      WizardStepConfig(icon: Icons.home, label: 'Address', mobileLabel: 'A'),
+    ];
+
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: VerticalWizardShell(
+          steps: steps,
+          currentStep: 0,
+          title: 'Student Registration',
+          formContent: Text('Form content step 1'),
+        ),
+      ),
+    );
+
+    expect(find.text('Student Registration'), findsNWidgets(2)); // Sidebar title + Breadcrumbs
+    expect(find.text('Form content step 1'), findsOneWidget);
+    expect(find.text('Personal'), findsNWidgets(2)); // Stepper + Header
+  });
+
+  testWidgets('ScrollableWizardShell renders sections simultaneously', (tester) async {
+    tester.view.physicalSize = const Size(1400, 900);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+
+    const steps = [
+      WizardStepConfig(icon: Icons.person, label: 'Basic Info', mobileLabel: 'Basic'),
+      WizardStepConfig(icon: Icons.contact_mail, label: 'Contact Details', mobileLabel: 'Contact'),
+    ];
+
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: ScrollableWizardShell(
+          steps: steps,
+          title: 'Wizard Scroll Shell',
+          sectionContents: [
+            Text('Section 1 Content'),
+            Text('Section 2 Content'),
+          ],
+        ),
+      ),
+    );
+
+    expect(find.text('Wizard Scroll Shell'), findsNWidgets(2)); // Sidebar title + Breadcrumbs
+    expect(find.text('Section 1 Content'), findsOneWidget);
+    expect(find.text('Section 2 Content'), findsOneWidget);
+  });
+
+  testWidgets('CustomDateRangePickerDialog renders FROM and TO calendars', (tester) async {
+    tester.view.physicalSize = const Size(1400, 900);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: CustomDateRangePickerDialog(
+          initialDateRange: DateTimeRange(
+            start: DateTime(2026, 8, 1),
+            end: DateTime(2026, 8, 10),
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('FROM'), findsOneWidget);
+    expect(find.text('TO'), findsOneWidget);
+    expect(find.text('Apply'), findsOneWidget);
+    expect(find.text('Cancel'), findsOneWidget);
+  });
+
+  testWidgets('CrmCalendar renders calendar grid and event items', (tester) async {
+    tester.view.physicalSize = const Size(1400, 900);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+
+    final events = [
+      CrmCalendarEvent(
+        id: '1',
+        name: 'John Doe',
+        date: DateTime.now(),
+        stage: 'New Lead',
+      ),
+    ];
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: CrmCalendar(events: events),
+        ),
+      ),
+    );
+
+    expect(find.text('Today'), findsOneWidget);
+    expect(find.text('John Doe'), findsWidgets);
+  });
+
+  testWidgets('CrmStatsDashboard renders header, top cards, and charts', (tester) async {
+    tester.view.physicalSize = const Size(1400, 900);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: CrmStatsDashboard(
+            totalLeads: 100,
+            archivedLeadsCount: 15,
+            leadsByStage: const {'New Lead': 40, 'Contacted': 60},
+            trendData: const [
+              CrmTrendData(date: '2026-08-01', value: 10),
+              CrmTrendData(date: '2026-08-02', value: 20),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    expect(find.text('Dashboard Stats'), findsOneWidget);
+    expect(find.text('Application Status'), findsOneWidget);
+    expect(find.text('Admission Funnel'), findsOneWidget);
+    expect(find.text('Archived Leads'), findsOneWidget);
+  });
+
+  // ───── CrmStageColors ─────
+  group('CrmStageColors', () {
+    test('resolves colors for valid stages', () {
+      final cols = CrmStageColors.forStage('New Lead');
+      expect(cols['color'], isNotNull);
+      expect(cols['bg'], isNotNull);
+      expect(cols['textColor'], isNotNull);
+    });
+
+    test('falls back to grey for unknown stage', () {
+      final cols = CrmStageColors.forStage('Unknown Stage');
+      expect(cols['color'], equals(Colors.grey));
+    });
+  });
 }
 
 void _noop() {}

@@ -265,10 +265,15 @@ class CustomDateRangePickerDialogState
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(),
             ),
-            Text(
-              DateFormat('MMMM yyyy').format(currentMonth),
-              style: const TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold),
+            Expanded(
+              child: Center(
+                child: Text(
+                  DateFormat('MMMM yyyy').format(currentMonth),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ),
             IconButton(
               icon: const Icon(Icons.chevron_right, size: 24),
